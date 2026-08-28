@@ -1,150 +1,1616 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>Smart Agriculture</title>
 
-<style>
-body{
-    margin:0;
-    font-family:Arial,sans-serif;
-    background:linear-gradient(135deg,#d4fc79,#96e6a1);
-}
+    <meta charset="UTF-8">
 
-.container{
-    width:400px;
-    margin:50px auto;
-    background:white;
-    padding:25px;
-    border-radius:20px;
-    box-shadow:0 8px 25px rgba(0,0,0,0.2);
-    text-align:center;
-}
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-h1{
-    color:#2e7d32;
-    margin-bottom:20px;
-}
+    <title>AgriAgent - Smart Agriculture</title>
 
-button{
-    background:#2e7d32;
-    color:white;
-    border:none;
-    padding:12px 25px;
-    margin:8px;
-    border-radius:10px;
-    font-size:16px;
-    cursor:pointer;
-}
 
-button:hover{
-    background:#1b5e20;
-}
+    <style>
 
-pre{
-    background:#f4f4f4;
-    padding:12px;
-    border-radius:10px;
-    text-align:left;
-    overflow:auto;
-}
-</style>
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            font-family: Arial, sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #d4fc79,
+                    #96e6a1
+                );
+
+            min-height: 100vh;
+
+            padding: 30px;
+        }
+
+
+        .container {
+
+            width: 500px;
+
+            max-width: 95%;
+
+            margin: auto;
+
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 8px 25px
+                rgba(0,0,0,0.2);
+        }
+
+
+        h1 {
+
+            text-align: center;
+
+            color: #2e7d32;
+
+            margin-bottom: 5px;
+        }
+
+
+        .subtitle {
+
+            text-align: center;
+
+            color: #666;
+
+            margin-bottom: 25px;
+        }
+
+
+        h2 {
+
+            color: #2e7d32;
+
+            border-bottom:
+                2px solid #c8e6c9;
+
+            padding-bottom: 8px;
+
+            margin-top: 25px;
+        }
+
+
+        h3 {
+
+            color: #2e7d32;
+        }
+
+
+        button {
+
+            background: #2e7d32;
+
+            color: white;
+
+            border: none;
+
+            padding: 12px 22px;
+
+            margin: 8px 0;
+
+            border-radius: 10px;
+
+            font-size: 16px;
+
+            cursor: pointer;
+
+            width: 100%;
+        }
+
+
+        button:hover {
+
+            background: #1b5e20;
+
+            transform: scale(1.01);
+        }
+
+
+        input[type="file"] {
+
+            width: 100%;
+
+            padding: 10px;
+
+            border:
+                1px solid #ccc;
+
+            border-radius: 8px;
+
+            margin-bottom: 10px;
+        }
+
+
+        select {
+
+            width: 100%;
+
+            padding: 12px;
+
+            border:
+                1px solid #ccc;
+
+            border-radius: 8px;
+
+            font-size: 15px;
+
+            margin-bottom: 10px;
+        }
+
+
+        .section {
+
+            margin-top: 25px;
+
+            padding: 20px;
+
+            background: #f8fff8;
+
+            border-radius: 15px;
+
+            border:
+                1px solid #c8e6c9;
+        }
+
+
+        .result-card {
+
+            background: white;
+
+            border-radius: 15px;
+
+            padding: 18px;
+
+            margin-top: 15px;
+
+            text-align: left;
+
+            border:
+                1px solid #c8e6c9;
+        }
+
+
+        .result-card h3 {
+
+            margin-top: 0;
+        }
+
+
+        .result-item {
+
+            background: #f8f8f8;
+
+            padding: 12px;
+
+            margin: 8px 0;
+
+            border-radius: 10px;
+        }
+
+
+        .result-label {
+
+            font-weight: bold;
+
+            color: #555;
+        }
+
+
+        .recommendation {
+
+            background: #e8f5e9;
+
+            padding: 18px;
+
+            border-radius: 12px;
+
+            margin-top: 15px;
+
+            font-size: 18px;
+
+            font-weight: bold;
+
+            color: #1b5e20;
+
+            text-align: center;
+        }
+
+
+        .success {
+
+            background: #e8f5e9;
+
+            padding: 12px;
+
+            border-radius: 10px;
+
+            margin-top: 10px;
+        }
+
+
+        .warning {
+
+            background: #fff3cd;
+
+            padding: 12px;
+
+            border-radius: 10px;
+
+            margin-top: 10px;
+
+            color: #664d03;
+        }
+
+
+        .error {
+
+            background: #f8d7da;
+
+            padding: 12px;
+
+            border-radius: 10px;
+
+            margin-top: 10px;
+
+            color: #842029;
+        }
+
+
+        .loading {
+
+            background: #e3f2fd;
+
+            padding: 12px;
+
+            border-radius: 10px;
+
+            margin-top: 10px;
+
+            text-align: center;
+        }
+
+
+        .location {
+
+            background: #e8f5e9;
+
+            padding: 12px;
+
+            border-radius: 10px;
+
+            margin-top: 10px;
+
+            text-align: center;
+
+            font-weight: bold;
+
+            color: #1b5e20;
+        }
+
+
+        .xai {
+
+            background: #f1f8e9;
+
+            border-left:
+                5px solid #2e7d32;
+
+            padding: 15px;
+
+            margin-top: 15px;
+
+            border-radius: 8px;
+
+            line-height: 1.6;
+        }
+
+
+        .sensor {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            padding: 12px;
+
+            margin: 8px 0;
+
+            background: white;
+
+            border-radius: 10px;
+
+            box-shadow:
+                0 2px 6px
+                rgba(0,0,0,0.08);
+        }
+
+
+        .sensor-value {
+
+            font-weight: bold;
+
+            color: #2e7d32;
+
+            font-size: 17px;
+        }
+
+
+        .footer {
+
+            text-align: center;
+
+            margin-top: 25px;
+
+            color: #777;
+
+            font-size: 13px;
+        }
+
+    </style>
+
 </head>
-<style>
-body{
-  background:#e8f5e9;
-  font-family:Arial;
-  text-align:center;
-  padding:30px;
-}
-button{
-  background:green;
-  color:white;
-  border:none;
-  padding:10px 20px;
-  margin:10px;
-  border-radius:8px;
-  cursor:pointer;
-}
-button:hover{
-    background:#1b5e20;
-    transform:scale(1.05);
-}
 
-.container:hover{
-    transform:translateY(-5px);
-    transition:0.3s;
-}
-pre{
-  background:rgb(255, 255, 255);
-  width:350px;
-  margin:10px auto;
-  padding:15px;
-  border-radius:10px;
-  text-align:left;
-}
-</style>
+
 <body>
-    <div class="container">
-    <h2>Smart Agriculture</h2>
-    <br>
 
-    <button onclick="weather()">Weather</button>
-<br><br>
-    <pre id="result"></pre>
-    <label>Select Crop</label><br>
 
-<select id="crop">
-  <option value="apple">🍎 Apple</option>
-  <option value="bell pepper">🫑 Bell Pepper</option>
-  <option value="grape">🍇 Grape</option>
-  <option value="cherry">🍒 Cherry</option>
-  <option value="corn">🌽 Corn</option>
-  <option value="peach">🍑 Peach</option>
-  <option value="potato">🥔 Potato</option>
-  <option value="strawberry">🍓 Strawberry</option>
-  <option value="tomato">🍅 Tomato</option>
-</select>
-<label>Soil Moisture</label><br>
-<input type="number" id="soil" value="20"><br><br>
+<div class="container">
 
-<label>Temperature</label><br>
-<input type="number" id="temp" value="30"><br><br>
 
-<label>Humidity</label><br>
-<input type="number" id="humidity" value="70"><br><br>
-<br><br>
-<button onclick="farm()">Farm</button>
-<pre id="farmResult"></pre>
-    <script>
-    async function weather() {
-        let res = await fetch("http://127.0.0.1:8000/weather/hyderabad");
-        let data = await res.json();
-        document.getElementById("result").innerText =
-            JSON.stringify(data, null, 2);
-    }
-    async function farm() {
-  let res = await fetch("http://127.0.0.1:8000/farm", {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({
-    crop: document.getElementById("crop").value,
-    soil_moisture: Number(document.getElementById("soil").value),
-    temperature: Number(document.getElementById("temp").value),
-    humidity: Number(document.getElementById("humidity").value)
-})
-  });
+    <h1>🌱 AgriAgent</h1>
 
-  let data = await res.json();
-  document.getElementById("farmResult").innerText =
-    JSON.stringify(data, null, 2);
-}
-    </script>
+    <div class="subtitle">
+        AI-Powered Smart Agriculture System
     </div>
+
+
+    <!-- =====================================================
+         1. PLANT DISEASE DETECTION
+         ===================================================== -->
+
+    <div class="section">
+
+        <h2>🌿 Plant Disease Detection</h2>
+
+        <p>
+            Upload a plant leaf image to detect
+            possible disease using the trained
+            AI model.
+        </p>
+
+
+        <input
+            type="file"
+            id="plantImage"
+            accept="image/*"
+        >
+
+
+        <button onclick="predictDisease()">
+
+            🔍 Analyze Disease
+
+        </button>
+
+
+        <div id="diseaseResult"></div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         2. CURRENT LOCATION WEATHER
+         ===================================================== -->
+
+    <div class="section">
+
+        <h2>🌦️ Weather & Climate</h2>
+
+        <p>
+            Get weather conditions for your
+            current location.
+        </p>
+
+
+        <button onclick="getCurrentWeather()">
+
+            📍 Get Current Location Weather
+
+        </button>
+
+
+        <div id="weatherResult"></div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         3. IoT SENSOR DATA
+         ===================================================== -->
+
+    <div class="section">
+
+        <h2>📡 IoT Smart Farm Monitoring</h2>
+
+        <p>
+            Soil moisture, temperature and humidity
+            are collected through the IoT system.
+        </p>
+
+
+        <div class="sensor">
+
+            <span>
+                💧 Soil Moisture
+            </span>
+
+            <span
+                class="sensor-value"
+                id="iotSoil"
+            >
+                --
+            </span>
+
+        </div>
+
+
+        <div class="sensor">
+
+            <span>
+                🌡️ Temperature
+            </span>
+
+            <span
+                class="sensor-value"
+                id="iotTemp"
+            >
+                --
+            </span>
+
+        </div>
+
+
+        <div class="sensor">
+
+            <span>
+                💦 Humidity
+            </span>
+
+            <span
+                class="sensor-value"
+                id="iotHumidity"
+            >
+                --
+            </span>
+
+        </div>
+
+
+        <button onclick="getIoTData()">
+
+            📡 Read IoT Sensor Data
+
+        </button>
+
+
+        <div id="iotResult"></div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         4. CROP SELECTION
+         ===================================================== -->
+
+    <div class="section">
+
+        <h2>🌾 Crop Information</h2>
+
+        <p>
+            Select the crop you are currently
+            growing or planning to grow.
+        </p>
+
+
+        <select id="crop">
+
+            <option value="apple">
+                🍎 Apple
+            </option>
+
+            <option value="bell pepper">
+                🫑 Bell Pepper
+            </option>
+
+            <option value="grape">
+                🍇 Grape
+            </option>
+
+            <option value="cherry">
+                🍒 Cherry
+            </option>
+
+            <option value="corn">
+                🌽 Corn
+            </option>
+
+            <option value="peach">
+                🍑 Peach
+            </option>
+
+            <option value="potato">
+                🥔 Potato
+            </option>
+
+            <option value="strawberry">
+                🍓 Strawberry
+            </option>
+
+            <option value="tomato">
+                🍅 Tomato
+            </option>
+
+        </select>
+
+
+        <button onclick="analyzeFarm()">
+
+            🤖 Analyze Farm Conditions
+
+        </button>
+
+
+        <div id="farmResult"></div>
+
+    </div>
+
+
+
+    <div class="footer">
+
+        AgriAgent • AI + IoT + Climate Analysis
+
+    </div>
+
+
+</div>
+
+
+
+<script>
+
+
+/* ============================================================
+   BACKEND URL
+   ============================================================ */
+
+const BACKEND =
+    "http://127.0.0.1:8000";
+
+
+
+/* ============================================================
+   1. PLANT DISEASE PREDICTION
+   ============================================================ */
+
+async function predictDisease() {
+
+
+    const imageInput =
+        document.getElementById("plantImage");
+
+
+    const result =
+        document.getElementById("diseaseResult");
+
+
+    if (imageInput.files.length === 0) {
+
+        result.innerHTML = `
+
+            <div class="warning">
+
+                ⚠️ Please select a plant
+                leaf image first.
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    const file =
+        imageInput.files[0];
+
+
+    const formData =
+        new FormData();
+
+
+    formData.append(
+        "file",
+        file
+    );
+
+
+    result.innerHTML = `
+
+        <div class="loading">
+
+            🔍 Analyzing plant image...
+
+        </div>
+
+    `;
+
+
+    try {
+
+
+        const response =
+            await fetch(
+                BACKEND + "/predict",
+                {
+
+                    method: "POST",
+
+                    body: formData
+
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "Disease result:",
+            data
+        );
+
+
+        if (data.success) {
+
+
+            result.innerHTML = `
+
+                <div class="result-card">
+
+                    <h3>
+                        🌿 Disease Prediction
+                    </h3>
+
+
+                    <div class="result-item">
+
+                        <span class="result-label">
+                            Disease:
+                        </span>
+
+                        ${data.prediction.disease}
+
+                    </div>
+
+
+                    <div class="result-item">
+
+                        <span class="result-label">
+                            Confidence:
+                        </span>
+
+                        ${data.prediction.confidence}%
+
+                    </div>
+
+
+                    <div class="xai">
+
+                        <b>🤖 AI Explanation</b>
+
+                        <br><br>
+
+                        The disease prediction is
+                        generated from visual features
+                        detected in the uploaded
+                        plant leaf image.
+
+                        <br><br>
+
+                        Prediction confidence:
+                        <b>
+                            ${data.prediction.confidence}%
+                        </b>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+
+
+        else {
+
+            result.innerHTML = `
+
+                <div class="error">
+
+                    ❌ Prediction failed:
+
+                    ${data.error || "Unknown error"}
+
+                </div>
+
+            `;
+
+        }
+
+
+    }
+
+    catch (error) {
+
+
+        console.error(
+            "Disease error:",
+            error
+        );
+
+
+        result.innerHTML = `
+
+            <div class="error">
+
+                ❌ Backend connection failed.
+
+                <br><br>
+
+                Make sure FastAPI is running.
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+
+/* ============================================================
+   2. CURRENT LOCATION WEATHER
+   ============================================================ */
+
+async function getCurrentWeather() {
+
+
+    const result =
+        document.getElementById(
+            "weatherResult"
+        );
+
+
+    result.innerHTML = `
+
+        <div class="loading">
+
+            📍 Getting your current location...
+
+        </div>
+
+    `;
+
+
+    if (!navigator.geolocation) {
+
+        result.innerHTML = `
+
+            <div class="error">
+
+                ❌ Your browser does not support
+                location services.
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    navigator.geolocation.getCurrentPosition(
+
+        async function(position) {
+
+
+            const latitude =
+                position.coords.latitude;
+
+
+            const longitude =
+                position.coords.longitude;
+
+
+            try {
+
+
+                const response =
+                    await fetch(
+
+                        BACKEND +
+                        "/weather/current?latitude=" +
+                        latitude +
+                        "&longitude=" +
+                        longitude
+
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                console.log(
+                    "Weather result:",
+                    data
+                );
+
+
+                if (!data.success) {
+
+                    result.innerHTML = `
+
+                        <div class="warning">
+
+                            ⚠️ Weather data could
+                            not be loaded.
+
+                        </div>
+
+                    `;
+
+                    return;
+                }
+
+
+                result.innerHTML = `
+
+                    <div class="result-card">
+
+                        <h3>
+                            🌦️ Current Weather
+                        </h3>
+
+
+                        <div class="location">
+
+                            📍 ${data.city || "Current Location"}
+
+                        </div>
+
+
+                        <div class="result-item">
+
+                            <span class="result-label">
+                                🌡️ Temperature:
+                            </span>
+
+                            ${data.weather.temperature_c}
+                            °C
+
+                        </div>
+
+
+                        <div class="result-item">
+
+                            <span class="result-label">
+                                💧 Humidity:
+                            </span>
+
+                            ${data.weather.humidity_percent}
+                            %
+
+                        </div>
+
+
+                        <div class="result-item">
+
+                            <span class="result-label">
+                                🌧️ Rain:
+                            </span>
+
+                            ${data.weather.rain_mm}
+                            mm
+
+                        </div>
+
+
+                        <div class="result-item">
+
+                            <span class="result-label">
+                                💨 Wind Speed:
+                            </span>
+
+                            ${data.weather.wind_speed_kmh}
+                            km/h
+
+                        </div>
+
+
+                        <div class="success">
+
+                            🌡️ Temperature Status:
+
+                            <b>
+                                ${data.climate_analysis.temperature_status}
+                            </b>
+
+                        </div>
+
+
+                        <div class="success">
+
+                            💧 Humidity Status:
+
+                            <b>
+                                ${data.climate_analysis.humidity_status}
+                            </b>
+
+                        </div>
+
+
+                        <div class="success">
+
+                            🌧️ Rain Status:
+
+                            <b>
+                                ${data.climate_analysis.rain_status}
+                            </b>
+
+                        </div>
+
+
+                    </div>
+
+                `;
+
+            }
+
+
+            catch (error) {
+
+
+                console.error(
+                    "Weather error:",
+                    error
+                );
+
+
+                result.innerHTML = `
+
+                    <div class="error">
+
+                        ❌ Unable to connect
+                        to weather service.
+
+                    </div>
+
+                `;
+
+            }
+
+        },
+
+
+        function(error) {
+
+
+            console.error(
+                "Location error:",
+                error
+            );
+
+
+            result.innerHTML = `
+
+                <div class="warning">
+
+                    📍 Location permission
+                    was not granted.
+
+                    <br><br>
+
+                    Please allow location
+                    access in your browser.
+
+                </div>
+
+            `;
+
+        }
+
+    );
+
+}
+
+
+
+/* ============================================================
+   3. IoT SENSOR DATA
+   ============================================================ */
+
+async function getIoTData() {
+
+
+    const result =
+        document.getElementById(
+            "iotResult"
+        );
+
+
+    result.innerHTML = `
+
+        <div class="loading">
+
+            📡 Reading IoT sensor data...
+
+        </div>
+
+    `;
+
+
+    try {
+
+
+        /*
+         * -----------------------------------------------------
+         * IoT DEMO SENSOR DATA
+         * -----------------------------------------------------
+         *
+         * These values simulate the readings
+         * sent by an ESP32 / IoT device.
+         *
+         * When real hardware is connected,
+         * this object can be replaced by
+         * actual sensor readings.
+         */
+
+        const sensorData = {
+
+            soil_moisture: 25,
+
+            temperature: 30,
+
+            humidity: 70
+
+        };
+
+
+        const response =
+            await fetch(
+
+                BACKEND +
+                "/iot/sensor-data",
+
+                {
+
+                    method: "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json"
+
+                    },
+
+                    body:
+                        JSON.stringify(
+                            sensorData
+                        )
+
+                }
+
+            );
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "IoT result:",
+            data
+        );
+
+
+        if (!data.success) {
+
+
+            result.innerHTML = `
+
+                <div class="error">
+
+                    ❌ IoT data could
+                    not be processed.
+
+                </div>
+
+            `;
+
+            return;
+        }
+
+
+        /*
+         * DISPLAY SENSOR VALUES
+         */
+
+        document.getElementById(
+            "iotSoil"
+        ).innerText =
+
+            data.sensor_data.soil_moisture
+            + "%";
+
+
+        document.getElementById(
+            "iotTemp"
+        ).innerText =
+
+            data.sensor_data.temperature
+            + " °C";
+
+
+        document.getElementById(
+            "iotHumidity"
+        ).innerText =
+
+            data.sensor_data.humidity
+            + "%";
+
+
+        /*
+         * DISPLAY ANALYSIS
+         */
+
+        result.innerHTML = `
+
+            <div class="result-card">
+
+                <h3>
+                    🤖 Smart Farm Analysis
+                </h3>
+
+
+                <div class="success">
+
+                    💧 Soil Status:
+
+                    <b>
+                        ${data.soil_analysis.status}
+                    </b>
+
+                </div>
+
+
+                <div class="success">
+
+                    🚿 Irrigation Advice:
+
+                    <b>
+                        ${data.soil_analysis.irrigation_advice}
+                    </b>
+
+                </div>
+
+
+                <div class="success">
+
+                    🌡️ Temperature:
+
+                    <b>
+                        ${data.climate_analysis.temperature_status}
+                    </b>
+
+                </div>
+
+
+                <div class="success">
+
+                    💦 Humidity:
+
+                    <b>
+                        ${data.climate_analysis.humidity_status}
+                    </b>
+
+                </div>
+
+
+                <div class="recommendation">
+
+                    🌾 Recommended Crop
+
+                    <br><br>
+
+                    ${data.crop_recommendation}
+
+                </div>
+
+
+                <!-- XAI -->
+
+                <div class="xai">
+
+                    <b>
+                        🔎 Why this recommendation?
+                    </b>
+
+                    <br><br>
+
+
+                    • Soil moisture is
+                    <b>
+                        ${data.sensor_data.soil_moisture}%
+                    </b>.
+
+                    <br>
+
+
+                    • Temperature is
+                    <b>
+                        ${data.sensor_data.temperature}°C
+                    </b>
+                    and is classified as
+                    <b>
+                        ${data.climate_analysis.temperature_status}
+                    </b>.
+
+                    <br>
+
+
+                    • Humidity is
+                    <b>
+                        ${data.sensor_data.humidity}%
+                    </b>
+                    and is classified as
+                    <b>
+                        ${data.climate_analysis.humidity_status}
+                    </b>.
+
+                    <br><br>
+
+
+                    <b>
+                        💡 Decision:
+                    </b>
+
+                    The system recommends
+                    <b>
+                        ${data.crop_recommendation}
+                    </b>
+                    based on the current soil
+                    moisture and climate conditions.
+
+                </div>
+
+            </div>
+
+        `;
+
+    }
+
+
+    catch (error) {
+
+
+        console.error(
+            "IoT error:",
+            error
+        );
+
+
+        result.innerHTML = `
+
+            <div class="error">
+
+                ❌ Unable to connect
+                to IoT service.
+
+                <br><br>
+
+                Make sure FastAPI is running.
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+
+/* ============================================================
+   4. FARM ANALYSIS
+   ============================================================ */
+
+async function analyzeFarm() {
+
+
+    const result =
+        document.getElementById(
+            "farmResult"
+        );
+
+
+    result.innerHTML = `
+
+        <div class="loading">
+
+            🤖 Analyzing farm conditions...
+
+        </div>
+
+    `;
+
+
+    try {
+
+
+        /*
+         * Use the same IoT values.
+         *
+         * This means the farm analysis
+         * does NOT ask the farmer to
+         * manually enter sensor values.
+         */
+
+        const sensorData = {
+
+            soil_moisture: 25,
+
+            temperature: 30,
+
+            humidity: 70
+
+        };
+
+
+        const crop =
+            document.getElementById(
+                "crop"
+            ).value;
+
+
+        const response =
+            await fetch(
+
+                BACKEND + "/farm",
+
+                {
+
+                    method: "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json"
+
+                    },
+
+                    body:
+                        JSON.stringify({
+
+                            crop:
+                                crop,
+
+                            soil_moisture:
+                                sensorData.soil_moisture,
+
+                            temperature:
+                                sensorData.temperature,
+
+                            humidity:
+                                sensorData.humidity
+
+                        })
+
+                }
+
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!data.success) {
+
+
+            result.innerHTML = `
+
+                <div class="error">
+
+                    ❌ Farm analysis failed.
+
+                </div>
+
+            `;
+
+            return;
+        }
+
+
+        result.innerHTML = `
+
+            <div class="result-card">
+
+                <h3>
+                    🌱 Farm Analysis
+                </h3>
+
+
+                <div class="result-item">
+
+                    <span class="result-label">
+                        Selected Crop:
+                    </span>
+
+                    ${data.input.crop}
+
+                </div>
+
+
+                <div class="result-item">
+
+                    <span class="result-label">
+                        Soil Moisture:
+                    </span>
+
+                    ${data.input.soil_moisture}%
+
+                </div>
+
+
+                <div class="result-item">
+
+                    <span class="result-label">
+                        Temperature:
+                    </span>
+
+                    ${data.input.temperature}°C
+
+                </div>
+
+
+                <div class="result-item">
+
+                    <span class="result-label">
+                        Humidity:
+                    </span>
+
+                    ${data.input.humidity}%
+
+                </div>
+
+
+                <div class="success">
+
+                    💧 Soil:
+
+                    <b>
+                        ${data.soil_analysis.status}
+                    </b>
+
+                    <br><br>
+
+                    🚿
+
+                    ${data.soil_analysis.irrigation_advice}
+
+                </div>
+
+
+                <div class="success">
+
+                    🌡️ Temperature:
+
+                    <b>
+                        ${data.climate_analysis.temperature_status}
+                    </b>
+
+                </div>
+
+
+                <div class="success">
+
+                    💦 Humidity:
+
+                    <b>
+                        ${data.climate_analysis.humidity_status}
+                    </b>
+
+                </div>
+
+
+                <div class="recommendation">
+
+                    🌾 AI Recommended Crop
+
+                    <br><br>
+
+                    ${data.crop_recommendation}
+
+                </div>
+
+            </div>
+
+        `;
+
+    }
+
+
+    catch (error) {
+
+
+        console.error(
+            "Farm analysis error:",
+            error
+        );
+
+
+        result.innerHTML = `
+
+            <div class="error">
+
+                ❌ Unable to connect
+                to farm analysis.
+
+                <br><br>
+
+                Make sure FastAPI
+                is running.
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+</script>
+
+
 </body>
+
 </html>
-git init
-git add .
-git commit -m "Smart Agriculture"
-git branch -M main
-git remote add origin https://github.com/aswithaputchakayala-lab/AgriAgent.git
-git push -u origin main

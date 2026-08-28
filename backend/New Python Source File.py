@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Agriculture</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:linear-gradient(135deg,#d4fc79,#96e6a1);
+}
+
+.container{
+    width:400px;
+    margin:50px auto;
+    background:white;
+    padding:25px;
+    border-radius:20px;
+    box-shadow:0 8px 25px rgba(0,0,0,0.2);
+    text-align:center;
+}
+
+h1{
+    color:#2e7d32;
+    margin-bottom:20px;
+}
+
+button{
+    background:#2e7d32;
+    color:white;
+    border:none;
+    padding:12px 25px;
+    margin:8px;
+    border-radius:10px;
+    font-size:16px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#1b5e20;
+}
+
+pre{
+    background:#f4f4f4;
+    padding:12px;
+    border-radius:10px;
+    text-align:left;
+    overflow:auto;
+}
+</style>
+</head>
+<style>
+body{
+  background:#e8f5e9;
+  font-family:Arial;
+  text-align:center;
+  padding:30px;
+}
+button{
+  background:green;
+  color:white;
+  border:none;
+  padding:10px 20px;
+  margin:10px;
+  border-radius:8px;
+  cursor:pointer;
+}
+button:hover{
+    background:#1b5e20;
+    transform:scale(1.05);
+}
+
+.container:hover{
+    transform:translateY(-5px);
+    transition:0.3s;
+}
+pre{
+  background:rgb(255, 255, 255);
+  width:350px;
+  margin:10px auto;
+  padding:15px;
+  border-radius:10px;
+  text-align:left;
+}
+</style>
+<body>
+    <div class="container">
+    <h2>Smart Agriculture</h2>
+    <br>
+
+    <button onclick="weather()">Weather</button>
+<br><br>
+    <pre id="result"></pre>
+    <label>Select Crop</label><br>
+
+<select id="crop">
+  <option value="apple">🍎 Apple</option>
+  <option value="bell pepper">🫑 Bell Pepper</option>
+  <option value="grape">🍇 Grape</option>
+  <option value="cherry">🍒 Cherry</option>
+  <option value="corn">🌽 Corn</option>
+  <option value="peach">🍑 Peach</option>
+  <option value="potato">🥔 Potato</option>
+  <option value="strawberry">🍓 Strawberry</option>
+  <option value="tomato">🍅 Tomato</option>
+</select>
+<label>Soil Moisture</label><br>
+<input type="number" id="soil" value="20"><br><br>
+
+<label>Temperature</label><br>
+<input type="number" id="temp" value="30"><br><br>
+
+<label>Humidity</label><br>
+<input type="number" id="humidity" value="70"><br><br>
+<br><br>
+<button onclick="farm()">Farm</button>
+<pre id="farmResult"></pre>
+    <script>
+    async function weather() {
+        let res = await fetch("http://127.0.0.1:8000/weather/hyderabad");
+        let data = await res.json();
+        document.getElementById("result").innerText =
+            JSON.stringify(data, null, 2);
+    }
+    async function farm() {
+  let res = await fetch("http://127.0.0.1:8000/farm", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({
+    crop: document.getElementById("crop").value,
+    soil_moisture: Number(document.getElementById("soil").value),
+    temperature: Number(document.getElementById("temp").value),
+    humidity: Number(document.getElementById("humidity").value)
+})
+  });
+
+  let data = await res.json();
+  document.getElementById("farmResult").innerText =
+    JSON.stringify(data, null, 2);
+}
+    </script>
+    </div>
+</body>
+</html>
